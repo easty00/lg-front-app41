@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Gothic_A1, Black_Han_Sans } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +10,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const gothicA1 = Gothic_A1({
+  variable: "--font-gothic-a1",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "700", "800", "900"],
+});
+
+const blackHanSans = Black_Han_Sans({
+    variable: "--font-black-han-sans",
+    subsets: ["latin"],
+    weight: ["400"],
 });
 
 export const metadata: Metadata = {
