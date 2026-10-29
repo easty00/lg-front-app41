@@ -29,3 +29,20 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-do-hyeon), sans-serif;
 }
+
+/* header */
+.main-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2lrem;
+  gap: 1lrem;
+  height: 500px;
+}
+
+.logo-text {
+  position: absolute;
+  top: -20;
+  left: -20;
+}

@@ -4,7 +4,7 @@ export default function Logo() {
     return(
         <h1>
             <LogoItem />
-            LG CNS
+            <span className="logo-text">LG CNS</span>
         </h1>
     );
 }
