@@ -4,5 +4,5 @@ export default function AboutSection() {
             {/** Description Items */}
             {/* Description Controls */}
         </section>
-    )
+    );
 }
