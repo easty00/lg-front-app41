@@ -1,4 +1,4 @@
-import BannerSwiperItem from "../molecules/BannerSwipperBannerItem";
+import BannerSwiperItem from "../molecules/BannerSwiperBannerItem";
 
 export default function HeroSwiperBanner() {
     return(
