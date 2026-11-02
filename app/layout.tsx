@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
+import AuthShell from "@/app/component/providers/AuthShell";
 import { Geist, Geist_Mono, Noto_Sans_KR, Do_Hyeon } from "next/font/google";
 import "./globals.css";
 
@@ -37,7 +39,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${notoSansKR.variable} ${doHyeon.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        <Suspense fallback={null}>
+          <AuthShell>{children}</AuthShell>
+        </Suspense>
       </body>
     </html>
   );
