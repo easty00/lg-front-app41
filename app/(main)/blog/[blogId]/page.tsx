@@ -1,5 +1,14 @@
-export default async function BlogPage({param},: {params: Promise<{ blogId:string}>}) {
-    return(
-        <Suspense fallback=
-    )
+import { Suspense } from "react";
+import BlogContent from "@/app/component/templates/BlogContent";
+
+export default function BlogPage({
+    params,
+}:  {
+    params: Promise<{blogId: string }>
+})  {
+     return (
+        <Suspense fallback={<p>Loading...</p>}>
+            <BlogContent params={params} />
+        </Suspense>
+     );
 }

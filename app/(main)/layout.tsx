@@ -1,7 +1,7 @@
 // import CustomTitle from "../component/atoms/customTitle";
 import Header from "../component/templates/Header";
 
-export default function MeinLayout(
+export default function MainLayout(
     {children}: {children: React.ReactNode}){
     return (
         <>

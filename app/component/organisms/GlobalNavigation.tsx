@@ -1,7 +1,7 @@
 import MobileNavigation from "../molecules/MobileNavigation";
 import DesktopNavigation from "../molecules/DesktopNavigation";
 
-export default function GlabalNavigation() {
+export default function GlobalNavigation() {
     return(
         <nav>
             <MobileNavigation />
