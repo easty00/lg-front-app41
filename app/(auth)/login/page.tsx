@@ -13,10 +13,10 @@ export default function Login() {
     }
 
     return (
-        <form action={handleSubmit}>
-            <Input type="text" placeholder="ID" name="userId"   />
-            <Input type="password" placeholder="Password" name="password"   />
-            <Button type="submit">Login</Button>
-        </form>
+        <>
+            {/** <LoginHeader /> */}
+            <LoginForm handleSubmit={handleSubmit} />
+            {/** <LoginFooter /> */}
+        </>
     );
 }
