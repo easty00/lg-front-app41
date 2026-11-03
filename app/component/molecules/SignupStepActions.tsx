@@ -26,6 +26,7 @@ export default function SignupStepActions({
   return (
     <form action={submitAction} noValidate encType={encType} className="flex flex-col gap-4">
       {children}
+      {backStep ? <input type="hidden" name="backStep" value={String(backStep)} /> : null}
       <div className="flex flex-wrap gap-2">
         <SignupSubmitButton
           action={submitAction}
@@ -36,8 +37,6 @@ export default function SignupStepActions({
         {backStep ? (
           <SignupSubmitButton
             action={backSignupStep}
-            name="backStep"
-            value={String(backStep)}
             label="이전"
             pendingLabel="이동 중"
             variant="outline"
