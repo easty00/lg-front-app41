@@ -1,4 +1,6 @@
-export default function Signup() {
-    {/**api 호출 후 서버와 연동  */}
-    return <div>Signup</div>;
+import SignupSection from "@/app/component/templates/SignupSection";
+
+export default function SignupPage() {
+
+  return <SignupSection />;
 }
