@@ -1,7 +1,7 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "../atoms/ErrorMessage";
@@ -13,21 +13,20 @@ import loginSchema, { loginFieldMessage } from "@/schema/loginSchema";
 
 type LoginFieldName = keyof UserPayloadType;
 
-function LoginSubmitButton({ isValid, pending }: { isValid: boolean; pending: boolean }) {
+function LoginSubmitButton({ isValid, isPending }: { isValid: boolean; isPending: boolean }) {
   return (
-    <Button type="submit" disabled={!isValid || pending} aria-busy={pending}>
-      {pending ? "로그인중" : "Login"}
+    <Button type="submit" disabled={!isValid || isPending} aria-busy={isPending}>
+      {isPending ? "로그인 중 ..." : "Login"}
     </Button>
   );
 }
 
-export default function LoginForm() {
+export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   const [payload, setPayload] = useState(initialValues);
   const [errors, setErrors] = useState(emptyErrors);
   const [formError, setFormError] = useState("");
-  const [pending, setPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const isValid = loginSchema.safeParse(payload).success;
-  const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -40,27 +39,20 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isValid || pending) return;
-
-    setPending(true);
+    if (!isValid) return;
     setFormError("");
-    const result = await signIn("credentials", {
-      email: payload.userId,
-      password: payload.password,
-      redirect: false,
+    startTransition(async () => {
+      await signIn("credentials", {
+        email: payload.userId,
+        password: payload.password,
+        redirect: true,
+        callbackUrl,
+      });
     });
-
-    if (result?.ok) {
-      router.replace("/");
-      router.refresh();
-      return;
-    }
-
-    setPending(false);
-    setFormError("이메일 또는 비밀번호가 올바르지 않습니다.");
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -85,7 +77,7 @@ export default function LoginForm() {
         onChange={handleChange}
       />
       <ErrorMessage id="login-error" error={formError} />
-      <LoginSubmitButton isValid={isValid} pending={pending} />
+      <LoginSubmitButton isValid={isValid} isPending={isPending} />
     </form>
   );
 }
