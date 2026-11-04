@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ErrorMessage from "../atoms/ErrorMessage";
@@ -70,8 +71,15 @@ export default function SignupPhotoInput({ error }: { error?: string }) {
   const message = hideServerError ? localError : error || localError;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col items-center gap-3">
       <input type="hidden" name="profileImageBlocked" value={blocked} />
+      <div className="flex size-28 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-sea-line bg-white text-sea-deep full:size-40">
+        {preview ? (
+          <img src={preview} alt="선택한 프로필 사진 미리보기" className="size-full object-cover" />
+        ) : (
+          <Camera className="size-9" aria-hidden="true" />
+        )}
+      </div>
       <Input
         ref={inputRef}
         id="profileImage"
@@ -80,17 +88,24 @@ export default function SignupPhotoInput({ error }: { error?: string }) {
         accept="image/png,image/jpeg,image/gif,image/webp"
         aria-invalid={Boolean(message)}
         aria-describedby={message ? "profileImage-error" : undefined}
+        className="peer sr-only"
         onChange={handleChange}
       />
-      {preview ? (
-        <img src={preview} alt="선택한 프로필 사진 미리보기" className="size-24 rounded-full object-cover" />
-      ) : null}
-      {preview ? (
-        <Button type="button" variant="ghost" onClick={clearPhoto}>
-          사진 지우기
-        </Button>
-      ) : null}
-      <ErrorMessage id="profileImage-error" error={message} />
+      <div className="flex items-center gap-2 peer-focus-visible:[&>label]:ring-3">
+        <label
+          htmlFor="profileImage"
+          className="inline-flex h-11 cursor-pointer items-center rounded-[10px] border border-sea-line bg-white px-4.5 text-sm font-medium text-sea-ink"
+        >
+          <span className="sr-only">프로필 사진 </span>사진 선택
+        </label>
+        {preview ? (
+          <Button type="button" variant="ghost" className="h-11 text-sea-ink" onClick={clearPhoto}>
+            사진 지우기
+          </Button>
+        ) : null}
+      </div>
+      <p className="text-center text-[13px]/relaxed text-sea-ink card:text-sea-muted">500KB 이하의 PNG, JPEG, GIF, WEBP</p>
+      <ErrorMessage id="profileImage-error" error={message} className="text-center" />
     </div>
   );
 }

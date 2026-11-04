@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import ErrorMessage from "../atoms/ErrorMessage";
 
 export default function FormField({
@@ -12,6 +13,8 @@ export default function FormField({
   value,
   defaultValue = "",
   error,
+  invalid = false,
+  icon,
   isClearable,
   required = true,
   autoComplete,
@@ -25,6 +28,8 @@ export default function FormField({
   value?: string;
   defaultValue?: string;
   error?: string;
+  invalid?: boolean;
+  icon?: React.ReactNode;
   isClearable?: boolean;
   required?: boolean;
   autoComplete?: string;
@@ -53,8 +58,13 @@ export default function FormField({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-1 full:gap-1.5">
       <div className="relative">
+        {icon ? (
+          <span className="pointer-events-none absolute top-1/2 left-3.5 hidden -translate-y-1/2 text-sea-muted card:block" aria-hidden="true">
+            {icon}
+          </span>
+        ) : null}
         <Input
           id={id}
           type={inputType}
@@ -64,9 +74,13 @@ export default function FormField({
           value={currentValue}
           required={required}
           autoComplete={autoComplete}
-          aria-invalid={Boolean(error)}
+          aria-invalid={Boolean(error) || invalid}
           aria-describedby={error ? errorId : undefined}
-          className={showClear && showToggle ? "pr-14" : showClear || showToggle ? "pr-8" : undefined}
+          className={cn(
+            "h-13 rounded-[10px] border-sea-line bg-white px-3.5 text-sm text-sea-ink placeholder:text-sea-muted aria-invalid:border-sea-error md:text-sm card:bg-sea-field full:h-15 full:text-base",
+            icon ? "card:pl-11" : undefined,
+            showClear && showToggle ? "pr-19" : showClear || showToggle ? "pr-11" : undefined,
+          )}
           onChange={handleChange}
         />
         {showToggle ? (
@@ -74,20 +88,20 @@ export default function FormField({
             type="button"
             aria-label={isVisible ? "비밀번호 숨기기" : "비밀번호 보기"}
             aria-pressed={isVisible}
-            className="absolute top-1/2 right-1.5 inline-flex size-5 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
+            className="absolute top-1/2 right-1 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-md text-sea-muted hover:text-sea-ink"
             onClick={() => setIsVisible((current) => !current)}
           >
-            {isVisible ? <EyeOff className="size-3.5" /> : <Eye className="size-3.5" />}
+            {isVisible ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
           </button>
         ) : null}
         {showClear ? (
           <button
             type="button"
             aria-label={`${placeholder} 입력 지우기`}
-            className={`absolute top-1/2 inline-flex size-5 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground hover:text-foreground ${showToggle ? "right-7" : "right-1.5"}`}
+            className={`absolute top-1/2 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-md text-sea-muted hover:text-sea-ink ${showToggle ? "right-9" : "right-1"}`}
             onClick={handleClear}
           >
-            <X className="size-3.5" />
+            <X className="size-4" />
           </button>
         ) : null}
       </div>

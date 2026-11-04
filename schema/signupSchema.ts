@@ -11,6 +11,8 @@ const signupIdentitySchema = z.object({
 
 const signupPasswordSchema = z.string().min(8, "비밀번호는 8자 이상이어야 합니다.");
 
+const PASSWORD_MISMATCH_MESSAGE = "비밀번호가 일치하지 않습니다.";
+
 const MAX_PROFILE_IMAGE_CHARS = 700_000;
 
 function validateInterests(interests: string[]) {
@@ -51,6 +53,7 @@ function parseProfileImage(raw: string) {
 }
 
 export {
+  PASSWORD_MISMATCH_MESSAGE,
   interestsFromText,
   parseProfileImage,
   signupIdentitySchema,

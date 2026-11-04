@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useFormStatus } from "react-dom";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -9,15 +10,17 @@ type SignupFormAction = (formData: FormData) => void | Promise<void>;
 export default function SignupSubmitButton({
   label,
   pendingLabel,
+  ariaLabel,
   variant = "default",
   action,
   name,
   value,
   className,
 }: {
-  label: string;
-  pendingLabel: string;
-  variant?: "default" | "outline";
+  label: ReactNode;
+  pendingLabel: ReactNode;
+  ariaLabel?: string;
+  variant?: "default" | "outline" | "ghost";
   action: SignupFormAction;
   name?: string;
   value?: string;
@@ -34,6 +37,7 @@ export default function SignupSubmitButton({
       value={value}
       disabled={status.pending}
       aria-busy={pending}
+      aria-label={ariaLabel}
       className={cn(buttonVariants({ variant }), className)}
     >
       {pending ? pendingLabel : label}

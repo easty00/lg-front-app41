@@ -14,5 +14,11 @@ function loginFieldMessage(field: LoginFieldName, value: string) {
   return result.error.issues[0]?.message ?? "";
 }
 
-export { loginFieldMessage };
+function loginErrorMessage(error: string | null) {
+  if (!error) return "";
+  if (error === "CredentialsSignin") return "아이디 또는 비밀번호가 올바르지 않습니다.";
+  return "로그인에 실패했습니다. 잠시 후 다시 시도해 주세요.";
+}
+
+export { loginErrorMessage, loginFieldMessage };
 export default loginSchema;

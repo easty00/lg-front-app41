@@ -31,6 +31,7 @@ type SignupErrors = {
   userId?: string;
   email?: string;
   password?: string;
+  passwordConfirm?: string;
   interests?: string;
   profileImageUrl?: string;
   form?: string;
@@ -82,7 +83,7 @@ function normalizeSignupDraft(value: Partial<SignupDraft> | null | undefined): S
 
 function normalizeSignupErrors(value: Partial<SignupErrors> | null | undefined): SignupErrors {
   const next: SignupErrors = {};
-  const keys = ["userId", "email", "password", "interests", "profileImageUrl", "form"] as const;
+  const keys = ["userId", "email", "password", "passwordConfirm", "interests", "profileImageUrl", "form"] as const;
   for (const key of keys) {
     const message = value?.[key];
     if (typeof message === "string" && message.trim()) next[key] = clip(message, 200);

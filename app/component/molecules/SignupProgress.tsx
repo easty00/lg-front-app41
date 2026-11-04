@@ -15,35 +15,19 @@ export default function SignupProgress() {
   const parsed = raw ? Number.parseInt(raw, 10) : 1;
   const stepNumber = parsed === 2 || parsed === 3 || parsed === 4 ? parsed : 1;
   return (
-    <ol className="grid grid-cols-4 gap-2" aria-label="회원가입 4단계">
+    <ol className="grid grid-cols-4 gap-1.5" aria-label="회원가입 4단계">
       {STEPS.map((item) => {
         const active = item.id === stepNumber;
         const done = item.id < stepNumber;
         return (
           <li
             key={item.id}
-            className="flex flex-col items-center gap-1 text-center"
+            className="flex flex-col gap-1.5"
             aria-current={active ? "step" : undefined}
           >
-            <span
-              className={`inline-flex size-8 items-center justify-center rounded-full text-sm ${
-                active
-                  ? "bg-primary font-semibold text-primary-foreground ring-2 ring-primary ring-offset-2"
-                  : done
-                    ? "bg-primary/80 font-medium text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
-              }`}
-            >
-              {item.id}
-            </span>
-            <span className={`text-xs ${active ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+            <span className={`h-1.25 rounded-full ${active || done ? "bg-sea-deep" : "bg-sea-line"}`} />
+            <span className={`text-xs full:text-sm ${active ? "font-bold text-sea-ink" : "text-sea-ink card:text-sea-muted"}`}>
               {item.label}
-            </span>
-            <span
-              className={`text-[10px] font-medium ${active ? "text-primary" : "invisible"}`}
-              aria-hidden={active ? undefined : true}
-            >
-              현재
             </span>
           </li>
         );

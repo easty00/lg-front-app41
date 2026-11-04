@@ -1,7 +1,5 @@
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import SignupSection from "@/app/component/templates/SignupSection";
-import SignupFallback from "@/components/loader/SignupFallback";
 import { furthestSignupStep, readSignupDraft, readSignupErrors } from "@/actions/draft";
 
 async function SignupContent({
@@ -31,9 +29,5 @@ export default async function SignupPage({
 }) {
   const searchParamsData = await searchParams;
 
-  return (
-    <Suspense fallback={<SignupFallback />}>
-      <SignupContent stepParam={searchParamsData.step} />
-    </Suspense>
-  );
+  return <SignupContent stepParam={searchParamsData.step} />;
 }

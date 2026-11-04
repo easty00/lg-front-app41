@@ -2,6 +2,7 @@
 
 import { redirect, unstable_rethrow } from "next/navigation";
 import {
+  PASSWORD_MISMATCH_MESSAGE,
   interestsFromText,
   parseProfileImage,
   signupIdentitySchema,
@@ -189,6 +190,12 @@ export async function submitSignupPassword(formData: FormData) {
     await writeSignupErrors({
       password: parsed.error.issues[0]?.message ?? "비밀번호는 8자 이상이어야 합니다.",
     });
+    redirect(signupPath(2));
+  }
+
+  if (password !== readText(formData, "passwordConfirm")) {
+    await writeSignupDraft({ ...draft, password, passwordOk: false, step: 2 });
+    await writeSignupErrors({ passwordConfirm: PASSWORD_MISMATCH_MESSAGE });
     redirect(signupPath(2));
   }
 

@@ -14,11 +14,8 @@ export default function SignupSection({
   errors: SignupErrors;
 }) {
   return (
-    <section
-      className="relative mx-auto flex h-screen w-full max-w-md flex-col gap-4 px-4 py-8"
-      aria-labelledby="signup-title"
-    >
-      <h2 id="signup-title" className="text-xl font-semibold">
+    <section className="flex flex-col card:flex-1" aria-labelledby="signup-title">
+      <h2 id="signup-title" className="sr-only">
         회원가입
       </h2>
       {step === 1 ? <SignupIdentityForm userId={draft.userId} email={draft.email} errors={errors} /> : null}

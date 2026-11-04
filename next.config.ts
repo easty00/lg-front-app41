@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",              // 그 사이트의 모든 그림
       },
     ],
+    qualities: [75, 90],               // 75: 기본값, 90: 로그인·회원가입 배너
   },
   experimental: {
     agentFeedback: true,
